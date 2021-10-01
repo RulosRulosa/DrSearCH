@@ -39,5 +39,49 @@ public class Main {
         }
     }
 
+    //Billy
+    //Validador de Rut
+    public static boolean validarRut(String rut) {   // 12.345.678-k
+        boolean valido= false;
+        rut = rut.toUpperCase();            // 12.345.678-K
+        rut = rut.replace("-", "");         // 12.345.678K
+        rut = rut.replace(".", "");         // 12345678k
+        int dv = rut.charAt(rut.length()-1);
+        try{
+            int numRut = Integer.parseInt(rut.substring(0,rut.length()-1));
 
+            int m=0, s=1;
+            for (;numRut !=0;numRut/=10) {
+                s = (s+numRut%10 *(9-m++%6))%11;
+            }
+
+            if(dv==(char)(s!=0 ?s+47:75)){
+                valido = true;
+            }
+
+        }catch(Exception e){
+            System.out.println("rut invalido");
+        }
+
+        return valido;
+    }
+
+    //Valida numeros naturales en un cierto rango, se usa para entrada de opciones
+    public static int Validar(int x) {
+        int n = -1;
+        do {
+            //Scanner ponerlo dentro del DO, y dentro de una funcion
+            Scanner teclado = new Scanner(System.in);
+            //System.out.println("ingrese otro numero");
+            try {
+                n = teclado.nextInt();
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+            if (n < 0 || n > x) {
+                System.out.println("ingrese un numero valido");
+            }
+        } while (n < 0 || n > x);
+        return n;
+    }
 }
