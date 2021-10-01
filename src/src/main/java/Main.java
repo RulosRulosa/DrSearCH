@@ -1,45 +1,43 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class Main {
-    //Danko
-    //Crea un archivo, en este caso crearemos txt
-    public static void crearArchivo(String ruta, String contenido) {
-        Path archivo = Paths.get(ruta);
-        try {
-            Files.write(archivo, contenido.getBytes());
-            System.out.println("El archivo fue creado exitosamente");
-        } catch (IOException e) {
-            System.out.println("El archivo no pudo ser creado");
+    public static void main(String[] args) {
+    Ingreso();
+    }
+    //Tania
+    public static void Ingreso() {
+        //Se guarda el rut que va a ser ingresado por el paciente
+        String RutPaciente = IngresarRut();
+        MostrarPrevisiones();
+        AgendarFecha(IngresarPrevision(), RutPaciente);
+    }
+
+    //Se crea un archivo en la carpeta Pacientes, con el rut del paciente, datos del especialista y la fecha agendada
+    public static void AgendarFecha(String ruta, String rut) {
+        if (ruta.equals("Fonasa.txt")) {
+            crearArchivo("Pacientes/" + rut + ".txt", EscogerEspecialista(ruta) + ";Fonasa");
+        } else {
+            crearArchivo("Pacientes/" + rut + ".txt", EscogerEspecialista(ruta) + ";Isapre");
+        }
+        System.out.println("Hora agendada con exito");
+    }
+
+    //Imprime por pantalla las opciones de previsiones
+    public static void MostrarPrevisiones() {
+        System.out.println("Ingresa tu prevision");
+        System.out.println("[1]Fonasa");
+        System.out.println("[2]Isapre");
+    }
+
+    //Ingresa la prevision, luego retorna la ruta de ésta
+    public static String IngresarPrevision() {
+        int Prevision = Validar(2);
+        if (Prevision == 1) {  //Fonasa
+            MostrarEspecialistasPrevision("Fonasa.txt");
+            return "Fonasa.txt";
+        } else {             //Isapre
+            MostrarEspecialistasPrevision("Isapre.txt");
+            return "Isapre.txt";
         }
     }
 
-    //Retorna un String con el contenido del archivo
-    public static String leerArchivo(String ruta) {
-        Path archivo = Paths.get(ruta);
-        String contenido = "";
-        try {
-            contenido = new String(Files.readAllBytes(archivo));
-        } catch (IOException e) {
-            System.out.println("El archivo no pudo ser leido");
-        }
-        return contenido;
-    }
 
-    //Valida los digitos de la fecha ingresada
-    public static boolean fechaValida(String ingresoFecha) {
-        //Guardamos la cadena en otro arreglo para no llamar la funcion tantas veces
-        int[] Cadena = CadenaFecha(ingresoFecha);
-        if (Cadena[0]<1||Cadena[0]>31){
-            return false;
-        }else if (Cadena[1]<1||Cadena[1]>12){
-            return false;
-        }else if (Cadena[2]<2021){
-            return false;
-        }else {
-            return true;
-        }
-    }
 }
