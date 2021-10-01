@@ -1,41 +1,31 @@
 public class Main {
-    //Tomás
-    //Imprime por pantalla los especialistas disponibles por prevision escogida
-    public static void MostrarEspecialistasPrevision(String prevision) {
-        System.out.println(leerArchivo(prevision));
+    //Rulos
+    //Retorna un int[] con los digitos de la fecha ingresada
+    public static int[] CadenaFecha(String ingresoFecha){
+        String[] FechaEnCadena = ingresoFecha.split("/");
+        int[] FechaIntEnCadena = new int[FechaEnCadena.length];
+        for (int i=0;i< FechaEnCadena.length;i++){
+            FechaIntEnCadena[i] = Integer.parseInt(FechaEnCadena[i]);
+        }
+        return FechaIntEnCadena;
     }
 
-    //Si el ingreso de fecha es válido, lo retorna para guardarlo en su txt
-    public static String EscogerFecha() {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha = null;
-        String ingresoFecha;
-        do {
-            ingresoFecha =IngresarFecha();
-            try {                           //Valida formato dd/MM/yyyy
-                fecha = format.parse(ingresoFecha);
-            } catch (Exception e) {
-                MostrarFechaIncorrecto();
-            }
-            if (fechaValida(ingresoFecha)){ //Valida digitos
-                MostrarFechaInvalido();
-            }
-        }while (fecha==null||!fechaValida(ingresoFecha)); //Si el formato o los digitos son invalidos, se sigue en el bucle
-        return ingresoFecha;
+    //Retorna lo que se escribira en el txt del paciente, el especialista escogido y la fecha agendada
+    public static String EscogerEspecialista(String ruta) {
+        System.out.println("¿Con cual especialista desea agendar hora?");
+        String[] Especialistas = leerArchivo(ruta).split("\n");
+        return Especialistas[Validar(Especialistas.length)]+";"+EscogerFecha();
     }
 
-    //Entrada de fecha a agendar
-    public static String IngresarFecha() {
+    //Entrada de rut, si este pasa por el validador, se sigue con el codigo
+    public static String IngresarRut() {
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Ingresar fecha en formato DD/MM/YYYY");
-        return teclado.next();
-    }
+        String rut;
+        do {
+            System.out.println("Ingresar rut:");
+            rut = teclado.next();
 
-    public static void MostrarFechaInvalido() {
-        System.out.println("Digitos de fecha invalidos");
-    }
-
-    public static void MostrarFechaIncorrecto() {
-        System.out.println("Formato de fecha incorrecto");
+        }while (!validarRut(rut));
+        return rut;
     }
 }
