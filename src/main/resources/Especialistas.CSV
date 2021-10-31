@@ -1,0 +1,9 @@
+ID,Nombre,Especialista,Fonasa,Isapres
+1,Juan Carlos Bodoque,Periodista,true,true
+2,Senku Ishigami,Poligrota,true,false
+3,Gregory House,Medico General,false,true
+4,James Wilson,Oncólogo,true,false
+5,Stephen Strange,Neurocirujano,false,true
+6,Preston Burke,Cardiólogo,false,true
+7,Billy Martinez,Proctólogo y Proxeneta,false,false
+8,Tomas Baeza,Ginecologo Especialista en Rubias,false,false
