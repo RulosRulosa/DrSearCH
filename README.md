@@ -1,2 +1,0 @@
-# DrSearCH
-proyecto progra
